@@ -1,4 +1,5 @@
 from queues import queues
+from queues import QueueException
 from django.conf import settings
 from django.db.models import signals
 from haystack import indexes
@@ -49,4 +50,18 @@ class QueuedSearchIndex(indexes.SearchIndex):
             ``delete:weblog.entry.8``
         """
         message = "%s:%s" % (action, get_identifier(instance))
-        return queue.write(message)
+        try:
+            return queue.write(message)
+        except QueueException:
+            import smtplib
+            from email.mime.text import MIMEText
+
+            me == "support@custommade.com"
+            you == "engg+queueexception@custommade.com"
+            msg['Subject'] = 'Error - QueueException'
+            msg['From'] = me
+            msg['To'] = you
+
+            s = smtplib.SMTP('localhost')
+            s.sendmail(me, [you], MIMEText("the following message could not be queued\n\n"+message))
+            s.quit()
