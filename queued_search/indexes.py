@@ -56,8 +56,8 @@ class QueuedSearchIndex(indexes.SearchIndex):
             import smtplib
             from email.mime.text import MIMEText
 
-            me == "support@custommade.com"
-            you == "engg+queueexception@custommade.com"
+            me = "support@custommade.com"
+            you = "engg+queueexception@custommade.com"
             msg['Subject'] = 'Error - QueueException'
             msg['From'] = me
             msg['To'] = you
