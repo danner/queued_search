@@ -55,7 +55,8 @@ class QueuedSearchIndex(indexes.SearchIndex):
         except QueueException:
             import smtplib
             from email.mime.text import MIMEText
-
+            
+            msg = {}
             me = "support@custommade.com"
             you = "engg+queueexception@custommade.com"
             msg['Subject'] = 'Error - QueueException'
